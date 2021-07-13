@@ -53,6 +53,7 @@ export default function App({Component, pageProps}) {
     algolia,
     preview,
     session,
+    siteSettings,
     ...passThruProps
   } = pageProps
 
@@ -74,7 +75,8 @@ export default function App({Component, pageProps}) {
     algolia: {
       indexName: algolia?.indexName
     },
-    menus: menus
+    menus: menus,
+    siteSettings: siteSettings
   })
 
   return (

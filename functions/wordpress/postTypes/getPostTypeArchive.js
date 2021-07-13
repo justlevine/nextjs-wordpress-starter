@@ -37,7 +37,8 @@ export default async function getPostTypeArchive(
     posts: null,
     pagination: null,
     error: false,
-    errorMessage: null
+    errorMessage: null,
+    siteSettings: null
   }
 
   // If no query is set for given post type, return error message.
@@ -63,10 +64,14 @@ export default async function getPostTypeArchive(
   await apolloClient
     .query({query, variables})
     .then((archive) => {
-      const {homepageSettings, siteSeo, menus, ...archiveData} = archive.data
+      const {homepageSettings, siteSeo, menus, siteConfig, ...archiveData} =
+        archive.data
 
       // Retrieve menus.
       response.menus = getMenus(menus)
+
+      // Retrieve SiteSettings
+      response.siteSettings = siteConfig.siteSettings
 
       // Retrieve default SEO data.
       response.defaultSeo = formatDefaultSeoData({homepageSettings, siteSeo})

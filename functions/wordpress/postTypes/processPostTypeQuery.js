@@ -33,6 +33,7 @@ export default async function processPostTypeQuery(
   const response = {
     apolloClient,
     error: false,
+    siteSettings: null,
     errorMessage: null
   }
 
@@ -49,10 +50,14 @@ export default async function processPostTypeQuery(
   response.post = await apolloClient
     .query({query, variables})
     .then((res) => {
-      const {homepageSettings, siteSeo, menus, ...postData} = res.data
+      const {homepageSettings, siteSeo, menus, siteConfig, ...postData} =
+        res.data
 
       // Retrieve menus.
       response.menus = getMenus(menus)
+
+      // Retrieve SiteSettings
+      response.siteSettings = siteConfig.siteSettings
 
       // Retrieve default SEO data.
       response.defaultSeo = formatDefaultSeoData({homepageSettings, siteSeo})

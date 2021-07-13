@@ -19,20 +19,23 @@ export default async function getFrontendPage(route) {
   const response = {
     apolloClient,
     error: false,
-    errorMessage: null
+    errorMessage: null,
+    siteSettings: null
   }
 
   // Execute query.
   response.post = await apolloClient
     .query({query: queryDefaultPageData})
     .then((res) => {
-      const {homepageSettings, siteSeo, menus} = res.data
-
+      const {homepageSettings, siteSeo, menus, siteConfig} = res.data
       // Retrieve menus.
       response.menus = getMenus(menus)
 
       // Retrieve default SEO data.
       response.defaultSeo = formatDefaultSeoData({homepageSettings, siteSeo})
+
+      // Retrieve SiteSettings
+      response.siteSettings = siteConfig.siteSettings
 
       // Set route SEO.
       return {
@@ -51,6 +54,5 @@ export default async function getFrontendPage(route) {
 
       return null
     })
-
   return response
 }

@@ -38,9 +38,11 @@ export default async function getPostTypeStaticProps(
   /* -- Handle Frontend-only routes. -- */
   if (Object.keys(frontendPageSeo).includes(postType)) {
     const {apolloClient, ...routeData} = await getFrontendPage(postType)
+    const all = await getFrontendPage(postType)
 
     return addApolloState(apolloClient, {
       props: {
+        all: all,
         ...routeData,
         ...sharedProps
       },
