@@ -1,4 +1,4 @@
-@import 'config';
+@import "config";
 
 .alignnone {
 	margin: $sp-1 $sp-3 $sp-3 0;
@@ -19,6 +19,7 @@ div.aligncenter {
 	float: left;
 	margin: $sp-1 $sp-3 $sp-3 0;
 }
+
 img {
 	max-width: 100%;
 	height: auto;
@@ -83,8 +84,8 @@ a img.aligncenter {
 /* Text meant only for screen readers. */
 .screen-reader-text {
 	border: 0;
-	clip: rect( 1px, 1px, 1px, 1px );
-	clip-path: inset( 50% );
+	clip: rect(1px, 1px, 1px, 1px);
+	clip-path: inset(50%);
 	height: 1px;
 	margin: -1px;
 	overflow: hidden;
@@ -109,6 +110,7 @@ a img.aligncenter {
 	top: $sp-1;
 	width: auto;
 	z-index: 100000;
+
 	/* Above WP toolbar. */
 }
 
@@ -187,8 +189,8 @@ a img.aligncenter {
 /* Text meant only for screen readers. */
 .screen-reader-text {
 	border: 0;
-	clip: rect( 1px, 1px, 1px, 1px );
-	clip-path: inset( 50% );
+	clip: rect(1px, 1px, 1px, 1px);
+	clip-path: inset(50%);
 	height: 1px;
 	margin: -1px;
 	overflow: hidden;
@@ -213,5 +215,6 @@ a img.aligncenter {
 	top: $sp-1;
 	width: auto;
 	z-index: 100000;
+
 	/* Above WP toolbar. */
 }

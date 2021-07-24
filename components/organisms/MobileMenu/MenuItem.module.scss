@@ -1,41 +1,41 @@
-@import '../../styles/config';
+@import "../../styles/config";
 
 .isHidden {
-  visibility: hidden;
-  position: absolute;
-  width: 0;
-  height: 0;
+	visibility: hidden;
+	position: absolute;
+	width: 0;
+	height: 0;
 }
 
 .item {
-  list-style: none;
-  padding-left: $sp-3;
+	list-style: none;
+	padding-left: $sp-3;
 
-  &:hover,
-  &:active,
-  &:focus {
-    background-color: $grey-0;
-  }
+	&:hover,
+	&:active,
+	&:focus {
+		background-color: $grey-0;
+	}
 }
 
 .link {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 
-  a {
-    height: 48px;
-    display: inline-flex;
-    align-items: center;
-  }
+	a {
+		height: 48px;
+		display: inline-flex;
+		align-items: center;
+	}
 }
 
 .next {
-  font-size: 2rem;
-  line-height: 1rem;
-  height: 48px;
+	font-size: 2rem;
+	line-height: 1rem;
+	height: 48px;
 
-  span {
-    margin-top: -0.5rem;
-  }
+	span {
+		margin-top: -0.5rem;
+	}
 }

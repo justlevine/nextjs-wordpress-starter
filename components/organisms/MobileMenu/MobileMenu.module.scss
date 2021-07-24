@@ -1,31 +1,31 @@
-@import '../../styles/config';
+@import "../../styles/config";
 
 .open {
-  padding: 0.5rem;
-  font-size: 1.2rem;
-  min-width: 48px;
+	padding: 0.5rem;
+	font-size: 1.2rem;
+	min-width: 48px;
 
-  @media screen and (min-width: $md) {
-    display: none;
-  }
+	@media screen and (min-width: $md) {
+		display: none;
+	}
 }
 
 .drawer {
-  min-width: 304px;
-  max-width: 304px;
-  width: 304px;
-  padding-top: $sp-2;
+	min-width: 304px;
+	max-width: 304px;
+	width: 304px;
+	padding-top: $sp-2;
 }
 
 .mobileSearch {
-  margin: $sp-2 auto $sp-3;
-  max-width: 280px;
+	margin: $sp-2 auto $sp-3;
+	max-width: 280px;
 }
 
 .donate {
-  margin-left: $sp-2;
+	margin-left: $sp-2;
 }
 
 .volunteer {
-  margin-left: auto;
+	margin-left: auto;
 }

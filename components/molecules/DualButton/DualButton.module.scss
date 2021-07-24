@@ -1,16 +1,16 @@
-@import '../../styles/config';
+@import "../../styles/config";
 
 .dualButton {
-  display: flex;
-  padding: 0;
-  margin: 0;
+	display: flex;
+	padding: 0;
+	margin: 0;
 
-  li {
-    list-style: none;
+	li {
+		list-style: none;
 
-    + li {
-      margin-left: $sp-2;
-      margin-right: auto;
-    }
-  }
+		+ li {
+			margin-left: $sp-2;
+			margin-right: auto;
+		}
+	}
 }
