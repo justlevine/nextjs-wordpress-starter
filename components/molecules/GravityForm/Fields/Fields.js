@@ -48,6 +48,7 @@ export default function Fields({fields, formikProps}) {
               break
 
             case 'fileupload':
+            case 'post_image':
               fieldToRender = (
                 <GfFields.File
                   {...field.node}

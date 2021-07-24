@@ -17,6 +17,7 @@ gravityFormsHandler.use(gfMultipartFormParser)
  * @param {object} res Instance of http.ServerResponse.
  */
 async function gravityForms(req, res) {
+  console.warn('req.body', {...req.body})
   try {
     // Retrieve props from request body.
     const {formId, fieldValues} = req.body

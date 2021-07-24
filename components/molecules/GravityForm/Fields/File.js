@@ -18,6 +18,7 @@ import PropTypes from 'prop-types'
  * @param  {boolean}       props.isRequired    GravityForm field is required.
  * @param  {string}        props.label         GravityForm field label.
  * @param  {boolean}       props.visibility    GravityForm visibility option.
+ * @param  {boolean}       props.multipleFiles    GravityForm multipleFiles option.
  * @param  {Function}      props.setFieldValue Formik function to set state.
  * @return {Element}                           The File component.
  */
@@ -27,6 +28,7 @@ export default function File({
   id,
   isRequired,
   label,
+  multipleFiles,
   visibility,
   setFieldValue
 }) {
@@ -47,6 +49,7 @@ export default function File({
         name={fieldId}
         required={isRequired}
         type="file"
+        multiple={false}
         onChange={(e) => {
           // Save to _filedata here so we don't corrupt state.
           setFieldValue(`${fieldId}_filedata`, e.currentTarget.files[0])

@@ -33,6 +33,8 @@ export default async function processGfFormSubmission(
 
   const fieldValues = processGfFieldValues(entryData, fieldData)
 
+  console.warn('postprocessGfFieldValues', {fieldValues})
+
   const apolloClient = initializeNextApiApollo()
 
   return apolloClient

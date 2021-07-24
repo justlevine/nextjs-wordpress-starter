@@ -6,6 +6,7 @@ import Header from '@/components/organisms/Header'
 import {seoPropTypes} from '@/functions/getPagePropTypes'
 import {BlogJsonLd, NextSeo} from 'next-seo'
 import PropTypes from 'prop-types'
+import {useMemo} from 'react'
 
 /**
  * Render the Layout component.
@@ -19,6 +20,7 @@ import PropTypes from 'prop-types'
  */
 export default function Layout({children, seo, hasJsonLd}) {
   const {menus} = useWordPressContext()
+  const memoizedMenues = useMemo(() => menus, [menus])
   return (
     <>
       <NextSeo
@@ -46,7 +48,7 @@ export default function Layout({children, seo, hasJsonLd}) {
       )}
       <Meta />
       <Header
-        menu={menus?.primary_menu}
+        menu={memoizedMenues}
         search={<AlgoliaSearch useHistory={true} usePlaceholder={true} />}
       />
       <main id="page-content">{children}</main>

@@ -96,9 +96,13 @@ export default function processGfFieldValues(entryData, fieldData) {
         break
 
       case 'FileUploadField':
-        fieldValue.fileUploadValues = entryData[fieldName]
+        fieldValue.fileUploadValues = [...entryData[fieldName]]
         break
-
+      case 'PostImageField':
+        console.warn('entrydata', entryData[fieldName])
+        fieldValue.postImageValues = entryData[fieldName]
+        console.warn('postimage-values', fieldValue.postImageValues)
+        break
       default:
         fieldValue.value = entryData[fieldName]
         break
@@ -106,6 +110,8 @@ export default function processGfFieldValues(entryData, fieldData) {
 
     fieldValues.push(fieldValue)
   })
+
+  console.warn(...fieldValues)
 
   return fieldValues
 }

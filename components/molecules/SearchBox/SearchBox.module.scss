@@ -1,0 +1,35 @@
+@import '../../styles/config';
+
+.searchBox {
+  border-radius: $sp-1;
+  background-color: $grey-20;
+  padding: 0 $sp-2;
+  display: flex;
+  align-items: center;
+
+  &:focus-within {
+    background-color: $grey-10;
+  }
+}
+
+.searchBtn {
+  width: $sp-3;
+}
+
+.searchField {
+  margin: 0 $sp-2;
+  order: 1;
+  width: 100%;
+
+  input::placeholder {
+    color: $grey-60;
+    opacity: 1;
+  }
+
+  &:focus-within {
+    + .searchBtn {
+      order: 2;
+      color: $blue-60;
+    }
+  }
+}

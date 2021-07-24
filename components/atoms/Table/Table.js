@@ -1,7 +1,7 @@
-import RichText from '@/components/atoms/RichText'
-import cn from 'classnames'
-import PropTypes from 'prop-types'
-import styles from './Table.module.css'
+import RichText from '@/components/atoms/RichText';
+import cn from 'classnames';
+import PropTypes from 'prop-types';
+import styles from './Table.module.css';
 
 /**
  * Table Block
@@ -16,108 +16,124 @@ import styles from './Table.module.css'
  * @param  {string}  props.className Optional classnames.
  * @return {Element}                 The Table component.
  */
-export default function Table({id, head, body, foot, caption, className}) {
-  return (
-    <>
-      {!!body.length && (
-        <div className={cn(styles.table, className)} id={id || null}>
-          <table>
-            {!!head?.length && (
-              <thead>
-                {head.map((row, index) => {
-                  return (
-                    <tr key={index}>
-                      {!!row?.cells &&
-                        row.cells.map((cell, index) => {
-                          return (
-                            <RichText
-                              tag="th"
-                              key={index}
-                              className={cn(
-                                cell?.align === 'center' ? 'text-center' : null,
-                                !cell?.align || cell.align === 'left'
-                                  ? 'text-left'
-                                  : null,
-                                cell?.align === 'right' ? 'text-right' : null
-                              )}
-                            >
-                              {cell.content}
-                            </RichText>
-                          )
-                        })}
-                    </tr>
-                  )
-                })}
-              </thead>
-            )}
-            <tbody>
-              {body.map((row, index) => {
-                return (
-                  <tr key={index}>
-                    {!!row?.cells &&
-                      row.cells.map((cell, index) => {
-                        return (
-                          <RichText
-                            tag="td"
-                            key={index}
-                            className={
-                              cell?.align !== ''
-                                ? `text-${cell.align}`
-                                : 'text-left'
-                            }
-                          >
-                            {cell.content}
-                          </RichText>
-                        )
-                      })}
-                  </tr>
-                )
-              })}
-            </tbody>
+export default function Table( { id, head, body, foot, caption, className } ) {
+	return (
+		<>
+			{ !! body.length && (
+				<div
+					className={ cn( styles.table, className ) }
+					id={ id || null }
+				>
+					<table>
+						{ !! head?.length && (
+							<thead>
+								{ head.map( ( row, index ) => {
+									return (
+										<tr key={ index }>
+											{ !! row?.cells &&
+												row.cells.map(
+													( cell, index ) => {
+														return (
+															<RichText
+																tag="th"
+																key={ index }
+																className={ cn(
+																	cell?.align ===
+																		'center'
+																		? 'text-center'
+																		: null,
+																	! cell?.align ||
+																		cell.align ===
+																			'left'
+																		? 'text-left'
+																		: null,
+																	cell?.align ===
+																		'right'
+																		? 'text-right'
+																		: null
+																) }
+															>
+																{ cell.content }
+															</RichText>
+														);
+													}
+												) }
+										</tr>
+									);
+								} ) }
+							</thead>
+						) }
+						<tbody>
+							{ body.map( ( row, index ) => {
+								return (
+									<tr key={ index }>
+										{ !! row?.cells &&
+											row.cells.map( ( cell, index ) => {
+												return (
+													<RichText
+														tag="td"
+														key={ index }
+														className={
+															cell?.align !== ''
+																? `text-${ cell.align }`
+																: 'text-left'
+														}
+													>
+														{ cell.content }
+													</RichText>
+												);
+											} ) }
+									</tr>
+								);
+							} ) }
+						</tbody>
 
-            {!!foot?.length && (
-              <tfoot>
-                {foot.map((row, index) => {
-                  return (
-                    <tr key={index}>
-                      {!!row?.cells &&
-                        row.cells.map((cell, index) => {
-                          return (
-                            <RichText
-                              tag="td"
-                              key={index}
-                              className={
-                                cell?.align !== ''
-                                  ? `text-${cell.align}`
-                                  : 'text-left'
-                              }
-                            >
-                              {cell.content}
-                            </RichText>
-                          )
-                        })}
-                    </tr>
-                  )
-                })}
-              </tfoot>
-            )}
-          </table>
-          {!!caption && (
-            <div className={styles.caption}>
-              <RichText tag="span">{caption}</RichText>
-            </div>
-          )}
-        </div>
-      )}
-    </>
-  )
+						{ !! foot?.length && (
+							<tfoot>
+								{ foot.map( ( row, index ) => {
+									return (
+										<tr key={ index }>
+											{ !! row?.cells &&
+												row.cells.map(
+													( cell, index ) => {
+														return (
+															<RichText
+																tag="td"
+																key={ index }
+																className={
+																	cell?.align !==
+																	''
+																		? `text-${ cell.align }`
+																		: 'text-left'
+																}
+															>
+																{ cell.content }
+															</RichText>
+														);
+													}
+												) }
+										</tr>
+									);
+								} ) }
+							</tfoot>
+						) }
+					</table>
+					{ !! caption && (
+						<div className={ styles.caption }>
+							<RichText tag="span">{ caption }</RichText>
+						</div>
+					) }
+				</div>
+			) }
+		</>
+	);
 }
 
 Table.propTypes = {
-  id: PropTypes.string,
-  head: PropTypes.array,
-  body: PropTypes.array,
-  foot: PropTypes.array,
-  caption: PropTypes.string,
-  className: PropTypes.string
-}
+	id: PropTypes.string,
+	head: PropTypes.array,
+	body: PropTypes.array,
+	foot: PropTypes.array,
+	caption: PropTypes.string,
+	className: PropTypes.string,
+};

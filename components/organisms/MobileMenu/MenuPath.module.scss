@@ -1,0 +1,23 @@
+@import '../../styles/config';
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  img {
+    max-width: 55px;
+  }
+}
+
+.btn {
+  font-size: 2rem;
+  width: 3rem;
+  min-width: 3rem;
+  height: 3rem;
+  max-height: 3rem;
+}
+
+.hidden {
+  visibility: hidden;
+}

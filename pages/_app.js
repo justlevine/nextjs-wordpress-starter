@@ -1,3 +1,4 @@
+// OTher imports
 import WordPressProvider from '@/components/common/WordPressProvider'
 import {useWpApollo} from '@/lib/wordpress/connector'
 import '@/styles/demo.css'
@@ -11,6 +12,7 @@ import {useRouter} from 'next/router'
 import PropTypes from 'prop-types'
 import {useEffect, useState} from 'react'
 import 'tailwindcss/tailwind.css'
+import '../wdr'
 
 /**
  * Render the App component.
@@ -54,6 +56,7 @@ export default function App({Component, pageProps}) {
     preview,
     session,
     siteSettings,
+    cart,
     ...passThruProps
   } = pageProps
 
@@ -76,7 +79,8 @@ export default function App({Component, pageProps}) {
       indexName: algolia?.indexName
     },
     menus: menus,
-    siteSettings: siteSettings
+    siteSettings: siteSettings,
+    cart: cart
   })
 
   return (

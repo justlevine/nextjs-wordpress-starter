@@ -1,23 +1,25 @@
 {
-  // Enable format with prettier on save, configure import organizing.
-  "editor.formatOnSave": true,
-  "editor.codeActionsOnSave": {
-    "source.organizeImports": true
-  },
-  "[javascriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
+	// Enable format with prettier on save, configure import organizing.
+	"editor.formatOnSave": true,
+	"editor.codeActionsOnSave": {
+		"source.organizeImports": true
+	},
+	"[javascriptreact]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
 
-  // This will get emmet working in JSX.
-  "emmet.includeLanguages": {
-    "javascript": "javascriptreact"
-  },
-
-  // 🔥 WebDevStudios - Your Success Is Our Mission. 🌮
-  "workbench.colorCustomizations": {
-    "titleBar.activeForeground": "#3f4040",
-    "titleBar.inactiveForeground": "#3f4040CC",
-    "titleBar.activeBackground": "#F3713C",
-    "titleBar.inactiveBackground": "#F3713CCC"
-  }
+	"prettier.jsxSingleQuote": true,
+	"prettier.singleQuote": true,
+	"prettier.useTabs": true,
+	"javascript.suggest.completeJSDocs": false,
+	"typescript.suggest.completeJSDocs": false,
+	"javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": true,
+	"javascript.format.insertSpaceAfterOpeningAndBeforeClosingJsxExpressionBraces": true,
+	"stylelint.config": {
+		"rules": {
+			"at-rule-name-case": "lower",
+			"at-rule-name-space-after": "always-single-line",
+			"at-rule-semicolon-newline-after": "always"
+		}
+	}
 }

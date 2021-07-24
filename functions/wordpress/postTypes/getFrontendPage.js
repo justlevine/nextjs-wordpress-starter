@@ -1,8 +1,8 @@
-import getMenus from '@/functions/wordpress/menus/getMenus'
-import formatDefaultSeoData from '@/functions/wordpress/seo/formatDefaultSeoData'
-import {initializeWpApollo} from '@/lib/wordpress/connector'
-import queryDefaultPageData from '@/lib/wordpress/pages/queryDefaultPageData'
-import frontendPageSeo from '@/lib/wordpress/_config/frontendPageSeo'
+import getMenus from '@/functions/wordpress/menus/getMenus';
+import formatDefaultSeoData from '@/functions/wordpress/seo/formatDefaultSeoData';
+import { initializeWpApollo } from '@/lib/wordpress/connector';
+import queryDefaultPageData from '@/lib/wordpress/pages/queryDefaultPageData';
+import frontendPageSeo from '@/lib/wordpress/_config/frontendPageSeo';
 
 /**
  * Retrieve data for Frontend-only route (i.e., page does not exist in WordPress).
@@ -11,48 +11,62 @@ import frontendPageSeo from '@/lib/wordpress/_config/frontendPageSeo'
  * @param  {string} route Frontend route.
  * @return {object}       Object containing Apollo client instance and post data or error object.
  */
-export default async function getFrontendPage(route) {
-  // Get/create Apollo instance.
-  const apolloClient = initializeWpApollo()
+export default async function getFrontendPage( route ) {
+	// Get/create Apollo instance.
+	const apolloClient = initializeWpApollo();
 
-  // Set up return object.
-  const response = {
-    apolloClient,
-    error: false,
-    errorMessage: null,
-    siteSettings: null
-  }
+	// Set up return object.
+	const response = {
+		apolloClient,
+		error: false,
+		errorMessage: null,
+		siteSettings: null,
+	};
 
-  // Execute query.
-  response.post = await apolloClient
-    .query({query: queryDefaultPageData})
-    .then((res) => {
-      const {homepageSettings, siteSeo, menus, siteConfig} = res.data
-      // Retrieve menus.
-      response.menus = getMenus(menus)
+	// Execute query.
+	response.post = await apolloClient
+		.query( { query: queryDefaultPageData } )
+		.then( ( res ) => {
+			const {
+				homepageSettings,
+				siteSeo,
+				menus,
+				cart,
+				siteConfig,
+			} = res.data;
+			// Retrieve menus.
+			response.menus = getMenus( menus );
 
-      // Retrieve default SEO data.
-      response.defaultSeo = formatDefaultSeoData({homepageSettings, siteSeo})
+			// Retrieve default SEO data.
+			response.defaultSeo = formatDefaultSeoData( {
+				homepageSettings,
+				siteSeo,
+			} );
 
-      // Retrieve SiteSettings
-      response.siteSettings = siteConfig.siteSettings
+			// Retrieve SiteSettings
+			response.siteSettings = siteConfig.siteSettings;
 
-      // Set route SEO.
-      return {
-        seo: {
-          title: `${frontendPageSeo?.[route]?.title} - ${
-            response.defaultSeo?.openGraph?.siteName ?? ''
-          }`,
-          metaDesc: frontendPageSeo?.[route]?.description,
-          canonical: `${response.defaultSeo?.openGraph?.url ?? ''}/${route}`
-        }
-      }
-    })
-    .catch((error) => {
-      response.error = true
-      response.errorMessage = error.message
+			// Retrieve Cart
+			response.cart = cart;
 
-      return null
-    })
-  return response
+			// Set route SEO.
+			return {
+				seo: {
+					title: `${ frontendPageSeo?.[ route ]?.title } - ${
+						response.defaultSeo?.openGraph?.siteName ?? ''
+					}`,
+					metaDesc: frontendPageSeo?.[ route ]?.description,
+					canonical: `${
+						response.defaultSeo?.openGraph?.url ?? ''
+					}/${ route }`,
+				},
+			};
+		} )
+		.catch( ( error ) => {
+			response.error = true;
+			response.errorMessage = error.message;
+
+			return null;
+		} );
+	return response;
 }

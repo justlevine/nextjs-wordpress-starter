@@ -1,10 +1,10 @@
-import formatBlockData from '@/functions/wordpress/blocks/formatBlockData'
-import getMenus from '@/functions/wordpress/menus/getMenus'
-import formatDefaultSeoData from '@/functions/wordpress/seo/formatDefaultSeoData'
+import formatBlockData from '@/functions/wordpress/blocks/formatBlockData';
+import getMenus from '@/functions/wordpress/menus/getMenus';
+import formatDefaultSeoData from '@/functions/wordpress/seo/formatDefaultSeoData';
 import {
-  createWpApolloClient,
-  initializeWpApollo
-} from '@/lib/wordpress/connector'
+	createWpApolloClient,
+	initializeWpApollo,
+} from '@/lib/wordpress/connector';
 
 /**
  * Retrieve single post.
@@ -18,91 +18,103 @@ import {
  * @return {object}                    Object containing Apollo client instance and post data or error object.
  */
 export default async function processPostTypeQuery(
-  postType,
-  id,
-  query,
-  variables = {},
-  preview = null
+	postType,
+	id,
+	query,
+	variables = {},
+	preview = null
 ) {
-  // Get/create Apollo instance.
-  const apolloClient = preview
-    ? createWpApolloClient(true)
-    : initializeWpApollo()
+	// Get/create Apollo instance.
+	const apolloClient = preview
+		? createWpApolloClient( true )
+		: initializeWpApollo();
 
-  // Set up return object.
-  const response = {
-    apolloClient,
-    error: false,
-    siteSettings: null,
-    errorMessage: null
-  }
+	// Set up return object.
+	const response = {
+		apolloClient,
+		error: false,
+		siteSettings: null,
+		errorMessage: null,
+	};
 
-  // If no query is set for given post type, return error message.
-  if (!query) {
-    return {
-      apolloClient,
-      error: true,
-      errorMessage: `Post type \`${postType}\` is not supported.`
-    }
-  }
+	// If no query is set for given post type, return error message.
+	if ( ! query ) {
+		return {
+			apolloClient,
+			error: true,
+			errorMessage: `Post type \`${ postType }\` is not supported.`,
+		};
+	}
 
-  // Execute query.
-  response.post = await apolloClient
-    .query({query, variables})
-    .then((res) => {
-      const {homepageSettings, siteSeo, menus, siteConfig, ...postData} =
-        res.data
+	// Execute query.
+	response.post = await apolloClient
+		.query( { query, variables } )
+		.then( ( res ) => {
+			const {
+				homepageSettings,
+				siteSeo,
+				menus,
+				siteConfig,
+				cart,
+				...postData
+			} = res.data;
 
-      // Retrieve menus.
-      response.menus = getMenus(menus)
+			// Retrieve menus.
+			response.menus = getMenus( menus );
 
-      // Retrieve SiteSettings
-      response.siteSettings = siteConfig.siteSettings
+			// Retrieve SiteSettings
+			response.siteSettings = siteConfig.siteSettings;
 
-      // Retrieve default SEO data.
-      response.defaultSeo = formatDefaultSeoData({homepageSettings, siteSeo})
+			// Retrieve Cart
+			response.cart = cart;
 
-      // Retrieve post data.
-      const post =
-        postData?.[postType] ?? // Dynamic posts.
-        postData?.additionalSettings?.additionalSettings?.[postType] // Settings custom page.
+			// Retrieve default SEO data.
+			response.defaultSeo = formatDefaultSeoData( {
+				homepageSettings,
+				siteSeo,
+			} );
 
-      // Set error props if data not found.
-      if (!post) {
-        response.error = true
-        response.errorMessage = `An error occurred while trying to retrieve data for ${postType} "${id}."`
+			// Retrieve post data.
+			const post =
+				postData?.[ postType ] ?? // Dynamic posts.
+				postData?.additionalSettings?.additionalSettings?.[ postType ]; // Settings custom page.
 
-        return null
-      }
+			// Set error props if data not found.
+			if ( ! post ) {
+				response.error = true;
+				response.errorMessage = `An error occurred while trying to retrieve data for ${ postType } "${ id }."`;
 
-      return post
-    })
-    .then(async (post) => {
-      // Add slug/ID to post.
-      const newPost = {
-        ...post,
-        slug: id
-      }
+				return null;
+			}
 
-      if ('basic' === preview || !post || !post?.blocksJSON) {
-        return post
-      }
+			return post;
+		} )
+		.then( async ( post ) => {
+			// Add slug/ID to post.
+			const newPost = {
+				...post,
+				slug: id,
+			};
 
-      // Handle blocks.
-      newPost.blocks = await formatBlockData(
-        JSON.parse(newPost.blocksJSON) ?? []
-      )
+			if ( 'basic' === preview || ! post || ! post?.blocksJSON ) {
+				return post;
+			}
 
-      delete newPost.blocksJSON
+			// Handle blocks.
+			newPost.blocks = await formatBlockData(
+				JSON.parse( newPost.blocksJSON ) ?? []
+			);
 
-      return newPost
-    })
-    .catch((error) => {
-      response.error = true
-      response.errorMessage = error.message
+			delete newPost.blocksJSON;
 
-      return null
-    })
+			return newPost;
+		} )
+		.catch( ( error ) => {
+			response.error = true;
+			response.errorMessage = error.message;
 
-  return response
+			return null;
+		} );
+
+	return response;
 }

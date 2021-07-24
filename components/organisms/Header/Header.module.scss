@@ -1,0 +1,42 @@
+@import '../../styles/config';
+
+.header {
+	@apply transition-all z-50 border-b shadow bg-gray-100;
+
+	.search {
+		@apply mb-8 flex justify-center;
+
+		@screen lg {
+			@apply justify-end;
+		}
+	}
+
+	.navigation {
+		@apply flex flex-col items-center;
+
+		@screen lg {
+			@apply flex-row items-end justify-between;
+		}
+
+		.logo {
+			@apply mb-8 w-32 h-auto;
+
+			@screen lg {
+				@apply mb-0;
+			}
+		}
+	}
+}
+
+.scrollingLogo {
+	img {
+		max-width: 55px;
+		max-height: 77px;
+	}
+}
+
+.toolbar {
+	justify-content: space-between;
+	align-items: flex-end;
+	padding-bottom: $sp-1;
+}

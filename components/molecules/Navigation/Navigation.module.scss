@@ -1,0 +1,78 @@
+@import '../../styles/_config.scss';
+
+.navigation {
+  width: 100%;
+  display: none;
+
+  @media screen and (min-width: $md) {
+    display: block;
+  }
+}
+
+.menu {
+  list-style: none;
+  display: flex;
+  padding: 0;
+  align-items: center;
+  justify-content: flex-end;
+  margin: 0 0 0 $sp-3;
+
+  a {
+    padding: $sp-2;
+    font-size: 0.875rem;
+    text-transform: none;
+  }
+
+  .arrow {
+    @apply w-4 h-4 ml-2 flex items-center justify-center opacity-30 transform rotate-90;
+  }
+
+  li {
+    position: relative;
+
+    &:hover,
+    &:focus-within {
+      ul {
+        @apply opacity-100 visible;
+      }
+    }
+  }
+}
+
+/* Sub Menu / Drop Menus */
+.subMenu {
+  @apply opacity-0 invisible absolute left-1 top-full z-50 p-2 rounded transition-all duration-150 ease-linear bg-white border;
+
+  width: 180px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.075);
+
+  li {
+    @apply text-sm flex flex-nowrap w-full items-center border-t border-opacity-5;
+
+    &:first-of-type {
+      @apply border-none;
+    }
+
+    a {
+      @apply p-2;
+    }
+
+    .hasChildren {
+      a {
+        .arrow {
+          @apply rotate-0 ml-auto -mr-1;
+        }
+      }
+    }
+  }
+
+  /* 3rd Level */
+  ul {
+    @apply top-0 left-full;
+  }
+}
+
+.headerSearch {
+  margin-right: auto;
+  margin-left: $sp-2;
+}

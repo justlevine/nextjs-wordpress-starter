@@ -75,14 +75,23 @@ export default async function getPostTypeTaxonomyArchive(
   await apolloClient
     .query({query, variables})
     .then((archive) => {
-      const {homepageSettings, siteSeo, menus, siteConfig, ...archiveData} =
-        archive.data
+      const {
+        homepageSettings,
+        siteSeo,
+        menus,
+        siteConfig,
+        cart,
+        ...archiveData
+      } = archive.data
 
       // Retrieve menus.
       response.menus = getMenus(menus)
 
       // Retrieve SiteSettings
       response.siteSettings = siteConfig.siteSettings
+
+      // Retrieve Cart
+      response.cart = cart
 
       // Retrieve default SEO data.
       response.defaultSeo = formatDefaultSeoData({homepageSettings, siteSeo})

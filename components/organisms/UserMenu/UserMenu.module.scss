@@ -1,0 +1,33 @@
+@import '../../styles/config';
+
+.login {
+	@media screen and ( max-width: $sm ) {
+		width: 48px;
+		min-width: 48px;
+		height: 48px;
+		border-radius: 50%;
+
+		> span {
+			font-size: 0;
+			line-height: 0;
+
+			span {
+				margin: $sp-1;
+				padding: 0;
+			}
+		}
+	}
+}
+
+.menu {
+	z-index: 1200;
+}
+
+.userBlock {
+	flex-direction: column;
+}
+
+.logout {
+	font-style: italic;
+	font-size: 0.825rem;
+}

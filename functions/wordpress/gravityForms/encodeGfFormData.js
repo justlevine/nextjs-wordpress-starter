@@ -17,9 +17,10 @@ export default function encodeGfFormData(data) {
 
   data.fieldValues.forEach((field) => {
     // Check if field is file upload field.
-    if (field?.fileUploadValues) {
+    if (field?.postImageValues) {
       // Pass uploaded file data.
-      formData.append(`field_${field.id}`, field.fileUploadValues)
+      console.log(field.postImageValues)
+      formData.append(`field_${field.id}`, field.postImageValues)
     } else {
       // Pass stringified version of full field object for all other field types.
       formData.append(`field_${field.id}`, JSON.stringify(field))

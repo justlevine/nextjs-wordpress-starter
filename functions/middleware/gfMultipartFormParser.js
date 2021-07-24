@@ -68,6 +68,7 @@ export default async function gfMultipartFormParser(req, res, next) {
     // Iterate through fields to format field data.
     Object.keys(fields).forEach((fieldName) => {
       const value = parseFieldValue(fields[fieldName])
+      const id = parseInt(fieldName.replace('field_', ''), 10)
 
       // If not a field, save to top-level of return data (e.g., `formId`).
       if (!fieldName.includes('field_')) {
@@ -76,8 +77,10 @@ export default async function gfMultipartFormParser(req, res, next) {
       }
 
       // Save all field data to `fieldValues` array.
-      data.fieldValues.push(value)
+      data.fieldValues.push({id, value})
     })
+
+    console.warn({files})
 
     // Iterate through files to format as field data.
     Object.keys(files).forEach((fieldName) => {
@@ -86,10 +89,14 @@ export default async function gfMultipartFormParser(req, res, next) {
       // Save to `fieldValues` array in same format as non-file fields.
       data.fieldValues.push({
         id,
-        fileUploadValues: files[fieldName]
+        postImageValues: {
+          image: Array.isArray(files[fieldName])
+            ? files[fieldName]
+            : [files[fieldName]]
+        }
       })
     })
-
+    console.warn('data-field-value', data?.fieldValues)
     req.body = {
       ...data
     }
